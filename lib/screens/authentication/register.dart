@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_project/screens/services/auth.dart';
+import 'package:school_project/shared/loading.dart';
 
 class Register extends StatefulWidget {
 
@@ -25,6 +26,8 @@ class _RegisterState extends State<Register> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   Color purpleColor = Color.fromRGBO(155, 132, 255, 100);
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
 
@@ -37,9 +40,13 @@ class _RegisterState extends State<Register> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
           if (_formKey.currentState.validate()) {
+            setState(() => loading = true);
             dynamic result = await _auth.registerWithEmailAndPassword(email, password);
             if(result == null) {
-              setState(() => error = "please supply a valid email");
+              setState(() {
+                error = "please supply a valid email";
+                loading = false;
+              });
             }
           }
         },
@@ -50,7 +57,7 @@ class _RegisterState extends State<Register> {
       ),
     );
 
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: mainColor,
         body: Container(

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_project/screens/services/auth.dart';
-
-
-
-
-
+import 'package:school_project/shared/loading.dart';
 
 
 class Login extends StatefulWidget {
@@ -17,11 +13,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
+  final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
+  bool loading = false;
 
   // text field state
   String email = "";
   String password = "";
+  String error = "";
 
   Color mainColor = Color.fromRGBO(0, 29, 38, 100);
   Color blueText = Color.fromRGBO(0, 207, 255, 100);
@@ -40,8 +39,16 @@ class _LoginState extends State<Login> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
-          print(email);
-          print(password);
+          if (_formKey.currentState.validate()) {
+            setState(() => loading = true);
+            dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+            if(result == null) {
+              setState(() {
+                error = "Could not sign in with those credentials";
+                loading = false;
+              });
+            }
+          }
         },
         child: Text("Login",
             textAlign: TextAlign.center,
@@ -50,11 +57,12 @@ class _LoginState extends State<Login> {
       ),
     );
 
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: mainColor,
         body: Container(
           child: Form(
+            key: _formKey,
             child: Column(
               children: <Widget>[
                 Padding(
@@ -82,6 +90,7 @@ class _LoginState extends State<Login> {
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
                             hintStyle: TextStyle(color: Colors.black),
                           ),
+                          validator: (val) => val.isEmpty ? "Enter an Email" : null,
                           onChanged: (val) {
                             setState(() => email = val);
                           },
@@ -99,7 +108,7 @@ class _LoginState extends State<Login> {
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
                             hintStyle: TextStyle(color: Colors.black),
                           ),
-                          
+                          validator: (val) => val.length < 6 ? "Enter a Password 6+ chars long" : null,
                           onChanged: (val) {
                             setState(() => password = val);
                           },
@@ -109,6 +118,12 @@ class _LoginState extends State<Login> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                         child: loginButon,
+                      ),
+                      SizedBox(height: 25.0),
+                      Text(
+                        error,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
                       SizedBox(height: 25.0),
                       InkWell(
