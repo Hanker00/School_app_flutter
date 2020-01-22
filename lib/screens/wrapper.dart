@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/screens/authentication/authenticate.dart';
+import 'package:school_project/screens/authentication/register_student.dart';
 import 'package:school_project/screens/home/homepage.dart';
 import 'package:school_project/models/user.dart';
 
@@ -17,4 +18,4 @@ class Wrapper extends StatelessWidget {
       return Home();
     }
   }
-}
+} 
