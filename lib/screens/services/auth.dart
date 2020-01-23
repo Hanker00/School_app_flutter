@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:school_project/models/user.dart';
+import 'package:school_project/screens/services/database.dart';
 
 class AuthService {
   
@@ -8,6 +9,11 @@ class AuthService {
   // create user obj based on FireBaseUser
   User _userFromFirebaseUser(FirebaseUser user) {
     return user != null ? User(uid: user.uid) : null;
+  }
+
+  // gets current user
+  Future<FirebaseUser> getUser() {
+    return _auth.currentUser();
   }
 
 
@@ -49,6 +55,9 @@ class AuthService {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+
+      // create a new document for the user with the uid
+      await DatabaseService(uid: user.uid).updateUserData(0,"name not set", 'no school');
       return _userFromFirebaseUser(user);
 
     } catch(e) {

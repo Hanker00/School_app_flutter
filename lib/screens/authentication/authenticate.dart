@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_project/screens/authentication/login.dart';
 import 'package:school_project/screens/authentication/register.dart';
+import 'package:school_project/screens/authentication/register_student.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _AuthenticateState extends State<Authenticate> {
     if (showSignUp) {
       return Login(toggleView: toggleView);
     } else {
-      return Register(toggleView: toggleView);
+      return RegisterStudent(toggleView: toggleView);
     }
   }
 }
