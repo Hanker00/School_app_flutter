@@ -304,7 +304,7 @@ class _RegisterStudentState extends State<RegisterStudent> {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);
                           dynamic result = await _auth
-                              .registerWithEmailAndPassword(email, password);
+                              .registerWithEmailAndPassword(email, password, grade, name, "Student");
                           if (result == null) {
                             setState(() {
                               error = "please supply a valid email";

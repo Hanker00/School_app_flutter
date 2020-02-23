@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/user.dart';
 import 'package:school_project/models/userPostModel.dart';
+import 'package:school_project/screens/home/homepage.dart';
 import 'package:school_project/screens/home/userPosts.dart';
 import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/shared/loading.dart';
@@ -108,7 +109,10 @@ class _CreateUserPostState extends State<CreateUserPost> {
         setState(() {
           loading = true;
         });
-        String imageUrl = await _startUpload();
+        String imageUrl = null;
+        if( _imageFile != null) {
+          imageUrl = await _startUpload();
+        }
         UserPost userPost = UserPost(
           imageUrl: imageUrl,
           subject: subject,
@@ -251,7 +255,7 @@ class _CreateUserPostState extends State<CreateUserPost> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        "Secondly, would you like to write something that you did today or how the lesson was?",
+                        "Secondly, would you like to write something that you did?",
                         style: TextStyle(
                           fontSize: 20.0,
                           color: blueText,

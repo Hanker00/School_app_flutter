@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:school_project/screens/authentication/register_student.dart';
 import 'package:school_project/screens/home/createUserPost.dart';
 import 'package:school_project/screens/home/post.dart';
+import 'package:school_project/screens/home/userPostView.dart';
 import 'package:school_project/screens/home/userPosts.dart';
 import 'package:school_project/screens/services/auth.dart';
 import 'package:school_project/screens/services/database.dart';
@@ -82,8 +83,7 @@ class _HomeState extends State<Home> {
                   Scaffold(
                     backgroundColor: mainColor,
                     appBar: AppBar(
-                      title: Text("Sharecify"),
-                      elevation: 0.0,
+                      title: Text("Sharecify", style: TextStyle(fontFamily: "Playfairdisplay")),  
                       backgroundColor: mainColor,
                       actions: <Widget>[
                         FlatButton.icon(
@@ -137,7 +137,7 @@ class _HomeState extends State<Home> {
                                 "What have you accomplished today?",
                                 style: TextStyle(
                                   color: blueText,
-                                  fontSize: 25.0,
+                                  fontSize: 20.0,
                                 ),
                               ),
                             ],
@@ -145,10 +145,11 @@ class _HomeState extends State<Home> {
                           SizedBox(height: 20.0),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return UploadPost();
-                              }));
+                              _pageController.animateToPage(
+                                1,
+                                duration: Duration(milliseconds: 200),
+                                curve: Curves.easeIn,
+                              );
                             },
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
@@ -201,7 +202,14 @@ class _HomeState extends State<Home> {
                                 minWidth: MediaQuery.of(context).size.width,
                                 padding:
                                     EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                onPressed: () {},
+                                onPressed: () {
+                                  print(DefaultTextStyle.of(context).style.fontFamily);
+                                  _pageController.animateToPage(
+                                    3,
+                                    duration: Duration(milliseconds: 200),
+                                    curve: Curves.easeIn,
+                                  );
+                                },
                                 child: Text("See previous post",
                                     textAlign: TextAlign.center,
                                     style: style.copyWith(
@@ -215,9 +223,8 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  UploadPost(),
                   CreateUserPost(),
-                  RegisterStudent(), 
+                  UserPostView(), 
                 ],
                 onPageChanged: (int index) {
                   setState(() {

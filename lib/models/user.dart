@@ -4,7 +4,6 @@ class User {
 
   final String uid;
   User({ this.uid});
-
 }
 
 class UserData {
@@ -12,5 +11,6 @@ class UserData {
   final String name;
   final int grade;
   final String school;
-  UserData({ this.uid, this.grade, this.name, this.school });
+  final String role;
+  UserData({ this.uid, this.grade, this.name, this.school, this.role});
 }
