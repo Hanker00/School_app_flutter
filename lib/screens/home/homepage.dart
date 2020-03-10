@@ -51,11 +51,9 @@ class _HomeState extends State<Home> {
       "December"
     ];
     String currentMonthInString = monthInString[currentMonth];
-    return currentMonthInString +
+    return currentYear.toString() + " " + currentMonthInString +
         " " +
-        currentDay.toString() +
-        " " +
-        currentYear.toString();
+        currentDay.toString();
   }
 
   @override

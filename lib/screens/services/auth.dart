@@ -8,7 +8,7 @@ class AuthService {
 
   // create user obj based on FireBaseUser
   User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+    return user != null ? User(uid: user.uid,) : null;
   }
 
   // gets current user

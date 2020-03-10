@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:school_project/models/parentChild.dart';
 import 'package:school_project/models/user.dart';
 import 'package:school_project/models/userPostModel.dart';
 
 class DatabaseService {
 
   final String uid;
-
-  DatabaseService({ this.uid });
+  DatabaseService({ this.uid,});
   // collection reference
   final userPostsRef = Firestore.instance.collection('posts');
   final CollectionReference userCollection = Firestore.instance.collection('users');
@@ -46,5 +46,27 @@ class DatabaseService {
       'authorId': userPost.authorId,
       'postDate': userPost.postDate,
     });
+  }
+
+  final parentChildRef = Firestore.instance.collection('parents');
+  void parentAddChild(ParentChild parentChild) {
+    parentChildRef.document(parentChild.parentId).collection("children").add({
+      'parentId': parentChild.parentId,
+      'childId': parentChild.childId,
+      'childName': parentChild.childName,
+    });
+  }
+
+  // childData from snapshot
+  ChildData childDataFromSnapshot(DocumentSnapshot snapshot) {
+    return ChildData(
+      parentId: uid,
+      childId: snapshot.data['childId'],
+    );
+  }
+
+  Stream<ChildData> get childData {
+    return parentChildRef.document(uid).snapshots()
+    .map(childDataFromSnapshot);
   }
 }

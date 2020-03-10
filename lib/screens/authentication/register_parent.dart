@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:school_project/screens/authentication/student_register_pages/page_1.dart';
-import 'package:school_project/screens/authentication/student_register_pages/page_2.dart';
-import 'package:school_project/screens/authentication/student_register_pages/page_3.dart';
-import 'package:numberpicker/numberpicker.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
 import 'package:school_project/screens/services/auth.dart';
+import 'package:school_project/screens/services/theme.dart';
 import 'package:school_project/shared/loading.dart';
 
-class RegisterStudent extends StatefulWidget {
-  final Function toggleView;
-  RegisterStudent({this.toggleView});
+class RegisterParent extends StatefulWidget {
   @override
-  _RegisterStudentState createState() => _RegisterStudentState();
+  _RegisterParentState createState() => _RegisterParentState();
 }
 
-class _RegisterStudentState extends State<RegisterStudent> {
+class _RegisterParentState extends State<RegisterParent> {
   PageController _pageController;
 
   @override
@@ -33,32 +25,25 @@ class _RegisterStudentState extends State<RegisterStudent> {
 
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
-  Color mainColor = Color.fromRGBO(0, 29, 38, 100);
-  Color blueText = Color.fromRGBO(0, 207, 255, 100);
-  int grade = 8;
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   String name = "Name";
   String email = "";
-  String password = "";
   String error = "";
-  DateTime birthdate;
-  String formattedDate;
-  int _currentPage = 0;
+  String password = "";
+  int grade = 0;
   bool loading = false;
-  Color purpleColor = Color.fromRGBO(155, 132, 255, 100);
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       appBar: AppBar(
-        title: Text("Student Register"),
+        title: Text("Parent Register"),
       ),
       backgroundColor: mainColor,
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: <Widget>[
-          // Page one
+
+          // Page One
           Container(
             child: Form(
               key: _formKey,
@@ -66,7 +51,7 @@ class _RegisterStudentState extends State<RegisterStudent> {
                 children: <Widget>[
                   SizedBox(height: 25.0),
                   Center(
-                      child: Text("Student Register",
+                      child: Text("Parent Register",
                           style: TextStyle(color: blueText, fontSize: 25.0))),
                   SizedBox(height: 20.0),
                   Center(
@@ -118,124 +103,8 @@ class _RegisterStudentState extends State<RegisterStudent> {
               ),
             ),
           ),
-          // Page Two
-          Container(
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                textTheme: Theme.of(context).textTheme.copyWith(
-                      body1: Theme.of(context).textTheme.headline.copyWith(
-                            color: Colors.white,
-                          ),
-                    ),
-              ),
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 25.0),
-                  Text("I am in grade:",
-                      style: TextStyle(color: blueText, fontSize: 50.0)),
-                  SizedBox(height: 20.0),
-                  NumberPicker.integer(
-                    initialValue: grade,
-                    minValue: 0,
-                    maxValue: 12,
-                    onChanged: (new_grade) {
-                      setState(() => grade = new_grade);
-                    },
-                  ),
-                  SizedBox(height: 40.0),
-                  IconButton(
-                    iconSize: 50.0,
-                    icon: Icon(
-                      Icons.check_circle,
-                      color: blueText,
-                    ),
-                    onPressed: () {
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                      );
-                    },
-                  )
-                ],
-              ),
-            ),
-          ),
-          // Page three
-          Container(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 25.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Finally when were you born?",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: blueText, fontSize: 50.0),
-                  ),
-                ),
-                SizedBox(height: 30.0),
-                RaisedButton(
-                  onPressed: () {
-                    DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        minTime: DateTime(1970, 1, 1),
-                        maxTime: DateTime(2019, 1, 1), onChanged: (date) {
-                      setState(() {
-                        birthdate = date;
-                        formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                      });
-                    }, onConfirm: (date) {
-                      print("confirm $formattedDate");
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                      );
-                    }, currentTime: DateTime.now(), locale: LocaleType.en);
-                  },
-                  child: Text("Pick your birthdate"),
-                ),
-              ],
-            ),
-          ),
-          // Final sign up button
-          Container(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 25.0),
-                Text(
-                  "Is everything correct $name?",
-                  style: TextStyle(color: blueText, fontSize: 50.0),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 25.0),
-                Text(
-                  "You are in grade: $grade",
-                  style: TextStyle(color: blueText, fontSize: 50.0),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  "You were born $formattedDate",
-                  style: TextStyle(color: blueText, fontSize: 50.0),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 40.0),
-                IconButton(
-                  iconSize: 50.0,
-                  icon: Icon(
-                    Icons.check_circle,
-                    color: blueText,
-                  ),
-                  onPressed: () {
-                    _pageController.nextPage(
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut,
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
 
+          // Page Two
           Container(
             child: Form(
               key: _formKey,
@@ -293,6 +162,7 @@ class _RegisterStudentState extends State<RegisterStudent> {
                       },
                     ),
                   ),
+                  SizedBox(height: 20.0),
                   Material(
                     elevation: 5.0,
                     borderRadius: BorderRadius.circular(30.0),
@@ -304,7 +174,7 @@ class _RegisterStudentState extends State<RegisterStudent> {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);
                           dynamic result = await _auth
-                              .registerWithEmailAndPassword(email, password, grade, name, "Student");
+                              .registerWithEmailAndPassword(email, password, grade, name, "Parent");
                           if (result == null) {
                             setState(() {
                               error = "please supply a valid email";
@@ -325,7 +195,6 @@ class _RegisterStudentState extends State<RegisterStudent> {
             ),
           ),
         ],
-        scrollDirection: Axis.vertical,
       ),
     );
   }
