@@ -21,7 +21,7 @@ class ViewUserPost extends StatelessWidget {
               backgroundColor: mainColor,
               centerTitle: true,
               title: Text(
-                "Your Post",
+                userPost['subject'].toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,

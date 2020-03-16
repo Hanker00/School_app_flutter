@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/parentChild.dart';
 import 'package:school_project/models/user.dart';
+import 'package:school_project/screens/parentUI/viewAllChildPosts.dart';
 import 'package:school_project/screens/services/auth.dart';
 import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/screens/services/theme.dart';
@@ -102,6 +103,7 @@ class _ViewChildrenFeedState extends State<ViewChildrenFeed> {
 Widget buildBody(BuildContext context, DocumentSnapshot ds) {
     return GestureDetector(
         onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewAllChildPosts(childId: ds['childId'], childName: ds['childName'],),),);
         },
           child: Container(
         child: Padding(
@@ -137,9 +139,14 @@ Widget buildBody(BuildContext context, DocumentSnapshot ds) {
                                 ds['childName'],
                                 style: TextStyle(color: blueText, fontSize: 20.0),
                               ),
+                            ),
+                            VerticalDivider(color: blueText,),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),                             child: Center(child: Text("View Posts", style: TextStyle(color: blueText, fontSize: 20.0), textAlign: TextAlign.end,)),
                             )
                           ],
                         ),
+                        
                     ],
                   ),
                 ),
