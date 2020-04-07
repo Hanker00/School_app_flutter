@@ -188,7 +188,7 @@ class _CreateUserPostState extends State<CreateUserPost> {
                       ),
                       IconButton(
                         icon: Icon(
-                          Icons.all_inclusive,
+                          Icons.text_fields,
                         ),
                         iconSize: 30.0,
                         color: blueText,
@@ -204,7 +204,7 @@ class _CreateUserPostState extends State<CreateUserPost> {
                       ),
                       IconButton(
                         icon: Icon(
-                          Icons.kitchen,
+                          Icons.all_inclusive,
                         ),
                         iconSize: 30.0,
                         color: blueText,

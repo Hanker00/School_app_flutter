@@ -8,6 +8,7 @@ import 'package:school_project/models/user.dart';
 import 'package:school_project/screens/home/signUpSelection.dart';
 import 'package:school_project/screens/parentUI/parentHome.dart';
 import 'package:school_project/screens/parentUI/viewChildrenFeed.dart';
+import 'package:school_project/screens/teacherUI/teacherHome.dart';
 import 'package:school_project/shared/loading.dart';
 
 class Wrapper extends StatelessWidget {
@@ -29,6 +30,10 @@ class Wrapper extends StatelessWidget {
           else if(snapshot.data['role'] == "Parent")
           {
             return ParentHome();
+          }
+          else if(snapshot.data['role'] == "Teacher")
+          {
+            return TeacherHome();
           }
         else {
           return Home();

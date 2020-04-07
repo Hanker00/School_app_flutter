@@ -3,6 +3,7 @@ import 'package:school_project/screens/authentication/login.dart';
 import 'package:school_project/screens/authentication/register.dart';
 import 'package:school_project/screens/authentication/register_parent.dart';
 import 'package:school_project/screens/authentication/register_student.dart';
+import 'package:school_project/screens/authentication/register_teacher.dart';
 import 'package:school_project/screens/services/auth.dart';
 import 'package:school_project/screens/services/theme.dart';
 import 'package:school_project/shared/loading.dart';
@@ -95,7 +96,10 @@ class _SignUpSelectionState extends State<SignUpSelection> {
                 minWidth: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                 onPressed: () {
-                  return RegisterStudent();
+                  return Navigator.push(
+                    context, MaterialPageRoute(
+                      builder: (context) => TeacherRegister())
+                    );
                 },
                 child: Text("Teacher",
                     textAlign: TextAlign.center,
@@ -123,4 +127,7 @@ class _SignUpSelectionState extends State<SignUpSelection> {
       ),
     );
   }
+}
+
+class RegisterTeacher {
 }

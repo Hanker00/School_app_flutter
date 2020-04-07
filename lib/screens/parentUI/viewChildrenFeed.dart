@@ -53,40 +53,42 @@ class _ViewChildrenFeedState extends State<ViewChildrenFeed> {
       stream: Firestore.instance.collection('parents').document(currentUserId).collection("children").snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data.documents.length > 0)
+          if (snapshot.data.documents.length > 0) 
+          {
             return ListView.builder(
             itemExtent: 80.0,
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, index) =>
               buildBody(context, snapshot.data.documents[index]),
             );
-            else {
-              return Container(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                "It seems like you have yet to added any children",
-                                style:
-                                    TextStyle(color: blueText, fontSize: 25.0),
-                                textAlign: TextAlign.left,
-                              ),
+          }
+          else if (snapshot.data.documents.length == 0)  {
+            return Container(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(
+                              "It seems like you have yet to added any children",
+                              style:
+                                  TextStyle(color: blueText, fontSize: 25.0),
+                              textAlign: TextAlign.left,
                             ),
                           ),
-                          Divider(color: Colors.white),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                "Press the + sign on your navigation bar to add new Children",
-                                style:
-                                    TextStyle(color: blueText, fontSize: 25.0),
-                                textAlign: TextAlign.left,
-                              ),
+                        ),
+                        Divider(color: Colors.white),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(
+                              "Press the + sign on your navigation bar to add new Children",
+                              style:
+                                  TextStyle(color: blueText, fontSize: 25.0),
+                              textAlign: TextAlign.left,
                             ),
                           ),
+                        ),
                   ],
                 ),
               );

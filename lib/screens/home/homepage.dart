@@ -252,17 +252,12 @@ class _HomeState extends State<Home> {
                     )),
                     BottomNavigationBarItem(
                         icon: Icon(
-                      Icons.account_circle,
+                      Icons.create,
                       size: 32.0,
                     )),
                     BottomNavigationBarItem(
                         icon: Icon(
                       Icons.assessment,
-                      size: 32.0,
-                    )),
-                    BottomNavigationBarItem(
-                        icon: Icon(
-                      Icons.create,
                       size: 32.0,
                     )),
                   ]),

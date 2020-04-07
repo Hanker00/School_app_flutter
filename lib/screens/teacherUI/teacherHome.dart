@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/parentChild.dart';
 import 'package:school_project/models/user.dart';
@@ -9,19 +8,20 @@ import 'package:school_project/screens/parentUI/viewChildrenFeed.dart';
 import 'package:school_project/screens/services/auth.dart';
 import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/screens/services/theme.dart';
+import 'package:school_project/screens/teacherUI/teacherDashboard.dart';
 import 'package:school_project/shared/loading.dart';
 
-class ParentHome extends StatefulWidget {
+class TeacherHome extends StatefulWidget {
   @override
-  _ParentHomeState createState() => _ParentHomeState();
+  _TeacherHomeState createState() => _TeacherHomeState();
 }
 
-class _ParentHomeState extends State<ParentHome> {
-  PageController _pageController;
+class _TeacherHomeState extends State<TeacherHome> {
+  PageController pageControllerTeacher;
   void initState() {
     // TODO: implement initState
     super.initState();
-    _pageController = PageController();
+    pageControllerTeacher = PageController(initialPage: 0);
   }
 
   Widget buildBody(BuildContext context, DocumentSnapshot ds) {
@@ -31,13 +31,10 @@ class _ParentHomeState extends State<ParentHome> {
     final String studentName = ds['name'];
     addParentChild() {
       ParentChild parentChild = ParentChild(
-        childId: studentId,
-        parentId: userId,
-        childName: studentName
-      );
+          childId: studentId, parentId: userId, childName: studentName);
       DatabaseService().parentAddChild(parentChild);
-
     }
+
     return Container(
         child: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -46,11 +43,11 @@ class _ParentHomeState extends State<ParentHome> {
           GestureDetector(
             onTap: () {
               addParentChild();
-              _pageController.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 200),
-                      curve: Curves.easeIn,
-                    );
+              pageControllerTeacher.animateToPage(
+                1,
+                duration: Duration(milliseconds: 200),
+                curve: Curves.easeIn,
+              );
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -111,8 +108,8 @@ class _ParentHomeState extends State<ParentHome> {
                   setState(() {
                     currentTab = currentIndex;
                   });
-                } ,
-                controller: _pageController,
+                },
+                controller: pageControllerTeacher,
                 children: <Widget>[
                   Scaffold(
                     appBar: AppBar(
@@ -137,55 +134,53 @@ class _ParentHomeState extends State<ParentHome> {
                     body: Column(
                       children: <Widget>[
                         Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                "Hello " + userData.name,
-                                style:
-                                    TextStyle(color: blueText, fontSize: 25.0),
-                                textAlign: TextAlign.left,
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(
+                              "Hello " + userData.name,
+                              style: TextStyle(color: blueText, fontSize: 25.0),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ),
+                        Divider(color: Colors.white),
+                        InkWell(
+                          onTap: () {
+                            pageControllerTeacher.animateToPage(
+                              1,
+                              duration: Duration(milliseconds: 200),
+                              curve: Curves.easeIn,
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              color: purpleColor,
+                              elevation: 10,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  SizedBox(height: 20.0),
+                                  const ListTile(
+                                    title: Text('View All Students',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0)),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                ],
                               ),
                             ),
                           ),
-                          Divider(color: Colors.white),
-                          InkWell(
-                            onTap: () {
-                              _pageController.animateToPage(
-                                1,
-                                duration: Duration(milliseconds: 200),
-                                curve: Curves.easeIn,
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                color: purpleColor,
-                                elevation: 10,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    SizedBox(height: 20.0),
-                                    const ListTile(
-                                      title: Text(
-                                          'View Childrens Post',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20.0)),
-                                    ),
-                                    SizedBox(height: 20.0),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                        ),
                       ],
                     ),
                   ),
-                  ViewChildrenFeed(),
+                  TeacherDashboard(),
                   //Page three
                   Scaffold(
                     appBar: AppBar(
@@ -207,7 +202,22 @@ class _ParentHomeState extends State<ParentHome> {
                         ),
                       ],
                     ),
-                    body: StreamBuilder(
+                    body: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                "Add children",
+                                style:
+                                    TextStyle(color: blueText, fontSize: 25.0),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ),
+                          Divider(color: Colors.white),
+                          StreamBuilder(
                               stream: Firestore.instance
                                   .collection('users')
                                   .where("role", isEqualTo: "Student")
@@ -226,7 +236,9 @@ class _ParentHomeState extends State<ParentHome> {
                                   return Loading();
                                 }
                               }),
-
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -238,7 +250,8 @@ class _ParentHomeState extends State<ParentHome> {
                     setState(() {
                       currentTab = index;
                     });
-                    _pageController.animateToPage(
+                    print(index);
+                    pageControllerTeacher.animateToPage(
                       index,
                       duration: Duration(milliseconds: 200),
                       curve: Curves.easeIn,
@@ -262,6 +275,9 @@ class _ParentHomeState extends State<ParentHome> {
                     )),
                   ]),
             );
+          }
+          else {
+            return Loading();
           }
         });
   }

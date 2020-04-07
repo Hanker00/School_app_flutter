@@ -10,7 +10,6 @@ class DatabaseService {
   // collection reference
   final userPostsRef = Firestore.instance.collection('posts');
   final CollectionReference userCollection = Firestore.instance.collection('users');
-
   Future updateUserData(int grade, String name, String school, String role) async {
     return await userCollection.document(uid).setData({
       'grade': grade,
@@ -49,12 +48,15 @@ class DatabaseService {
   }
 
   final parentChildRef = Firestore.instance.collection('parents');
-  void parentAddChild(ParentChild parentChild) {
-    parentChildRef.document(parentChild.parentId).collection("children").add({
+  Future<void> parentAddChild(ParentChild parentChild) async {
+    final snapshot = await parentChildRef.document(parentChild.parentId).collection("children").document(parentChild.childId).get();
+    if (snapshot == null) {
+      parentChildRef.document(parentChild.parentId).collection("children").add({
       'parentId': parentChild.parentId,
       'childId': parentChild.childId,
       'childName': parentChild.childName,
     });
+    }
   }
 
   // childData from snapshot

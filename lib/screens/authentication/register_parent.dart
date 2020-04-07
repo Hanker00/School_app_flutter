@@ -181,6 +181,9 @@ class _RegisterParentState extends State<RegisterParent> {
                               loading = false;
                             });
                           }
+                        else {
+                          return Navigator.of(context).pop();
+                        }
                         }
                       },
                       child: Text("Sign up",
