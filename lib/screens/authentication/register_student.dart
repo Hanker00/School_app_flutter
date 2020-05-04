@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_project/screens/authentication/student_register_pages/page_1.dart';
-import 'package:school_project/screens/authentication/student_register_pages/page_2.dart';
-import 'package:school_project/screens/authentication/student_register_pages/page_3.dart';
+
 import 'package:numberpicker/numberpicker.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';

@@ -10,6 +10,7 @@ import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/screens/services/theme.dart';
 import 'package:school_project/screens/teacherUI/teacherDashboard.dart';
 import 'package:school_project/shared/loading.dart';
+import 'package:school_project/screens/teacherUI/teacherAllStudents.dart';
 
 class TeacherHome extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class TeacherHome extends StatefulWidget {
 }
 
 class _TeacherHomeState extends State<TeacherHome> {
+  int _currentTab = 0;
   PageController pageControllerTeacher;
   void initState() {
     // TODO: implement initState
@@ -34,7 +36,6 @@ class _TeacherHomeState extends State<TeacherHome> {
           childId: studentId, parentId: userId, childName: studentName);
       DatabaseService().parentAddChild(parentChild);
     }
-
     return Container(
         child: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -104,11 +105,6 @@ class _TeacherHomeState extends State<TeacherHome> {
             UserData userData = snapshot.data;
             return Scaffold(
               body: PageView(
-                onPageChanged: (int currentIndex) {
-                  setState(() {
-                    currentTab = currentIndex;
-                  });
-                },
                 controller: pageControllerTeacher,
                 children: <Widget>[
                   Scaffold(
@@ -147,7 +143,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                         InkWell(
                           onTap: () {
                             pageControllerTeacher.animateToPage(
-                              1,
+                              2,
                               duration: Duration(milliseconds: 200),
                               curve: Curves.easeIn,
                             );
@@ -182,75 +178,22 @@ class _TeacherHomeState extends State<TeacherHome> {
                   ),
                   TeacherDashboard(),
                   //Page three
-                  Scaffold(
-                    appBar: AppBar(
-                      title: Text("Add children"),
-                      backgroundColor: mainColor,
-                      actions: <Widget>[
-                        FlatButton.icon(
-                          icon: Icon(
-                            Icons.person,
-                            color: Colors.white,
-                          ),
-                          label: Text(
-                            'Logout',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () async {
-                            await _auth.signOut();
-                          },
-                        ),
-                      ],
-                    ),
-                    body: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                "Add children",
-                                style:
-                                    TextStyle(color: blueText, fontSize: 25.0),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          ),
-                          Divider(color: Colors.white),
-                          StreamBuilder(
-                              stream: Firestore.instance
-                                  .collection('users')
-                                  .where("role", isEqualTo: "Student")
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return ListView.builder(
-                                    shrinkWrap: true,
-                                    itemExtent: 80.0,
-                                    itemCount: snapshot.data.documents.length,
-                                    itemBuilder: (context, index) => buildBody(
-                                        context,
-                                        snapshot.data.documents[index]),
-                                  );
-                                } else {
-                                  return Loading();
-                                }
-                              }),
-                        ],
-                      ),
-                    ),
-                  ),
+                  TeacherAllStudents(),
                 ],
+              onPageChanged: (int index) {
+                  setState(() {
+                    _currentTab = index;
+                  });
+                },
               ),
               bottomNavigationBar: CupertinoTabBar(
                   activeColor: purpleColor,
                   backgroundColor: mainColor,
-                  currentIndex: currentTab,
+                  currentIndex: _currentTab,
                   onTap: (int index) {
                     setState(() {
-                      currentTab = index;
+                      _currentTab = index;
                     });
-                    print(index);
                     pageControllerTeacher.animateToPage(
                       index,
                       duration: Duration(milliseconds: 200),
@@ -265,12 +208,12 @@ class _TeacherHomeState extends State<TeacherHome> {
                     )),
                     BottomNavigationBarItem(
                         icon: Icon(
-                      Icons.account_circle,
+                      Icons.create,
                       size: 32.0,
                     )),
                     BottomNavigationBarItem(
                         icon: Icon(
-                      Icons.add_circle,
+                      Icons.assessment,
                       size: 32.0,
                     )),
                   ]),

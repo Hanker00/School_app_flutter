@@ -14,6 +14,8 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
   String numberOfStudents = "Loading...";
   String numberOfParents = "Loading...";
   bool loading = true;
+
+  // Function to calculate all total users with the role Student
   Future<String> calculateAllStudents() async {
       QuerySnapshot querySnapshot = await Firestore.instance.collection("users").where("role", isEqualTo: "Student").getDocuments();
         var list = querySnapshot.documents;
@@ -21,14 +23,7 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
         return list.length.toString();
   }
 
-  Future<String> calculateAllPosts () async {
-    Stream<QuerySnapshot> postsRef = Firestore.instance.collection("posts").snapshots();
-    int postRefLength = await postsRef.length;
-    for(int i = 0; i < postRefLength; i++) {
-      
-    }
-  }
-
+  // Function to calculate all total users with the role Parents
   Future<String> calculateAllParents() async {
       QuerySnapshot querySnapshot = await Firestore.instance.collection("users").where("role", isEqualTo: "Parent").getDocuments();
         var list = querySnapshot.documents;
