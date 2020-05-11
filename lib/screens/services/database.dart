@@ -47,10 +47,11 @@ class DatabaseService {
     });
   }
 
+  // Adds child info to the database
   final parentChildRef = Firestore.instance.collection('parents');
   Future<void> parentAddChild(ParentChild parentChild) async {
     final snapshot = await parentChildRef.document(parentChild.parentId).collection("children").document(parentChild.childId).get();
-    if (snapshot == null) {
+    if (snapshot != null) {
       parentChildRef.document(parentChild.parentId).collection("children").add({
       'parentId': parentChild.parentId,
       'childId': parentChild.childId,

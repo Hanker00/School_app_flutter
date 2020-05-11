@@ -53,8 +53,11 @@ class _ViewChildrenFeedState extends State<ViewChildrenFeed> {
       stream: Firestore.instance.collection('parents').document(currentUserId).collection("children").snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          print(snapshot.hasData);
+          print(snapshot.data.documents.length);
           if (snapshot.data.documents.length > 0) 
           {
+            print(snapshot.data.documents.length);
             return ListView.builder(
             itemExtent: 80.0,
             itemCount: snapshot.data.documents.length,
@@ -63,6 +66,7 @@ class _ViewChildrenFeedState extends State<ViewChildrenFeed> {
             );
           }
           else if (snapshot.data.documents.length == 0)  {
+            print(snapshot.data.documents == 0);
             return Container(
               child: Column(
                 children: <Widget>[
