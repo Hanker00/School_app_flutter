@@ -2,17 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<<<<<<< HEAD
+	<key>NSCameraUsageDescription</key>
+	<string>For users to take their own photos</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For users to use the microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For users to upload photos</string>
 	<key>FirebaseScreenReportingEnabled</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
-=======
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>In order for users to upload images the app requires permisson to use the gallery</string>
-	<key>NSCameraUsageDescription</key>
-	<string>In order for users to take new photos and then upload the app requires permission to use the camera</string>
->>>>>>> 37b4ca534b67c344d5c348095b9cdd8a35d1e929
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
