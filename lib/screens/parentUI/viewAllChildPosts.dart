@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:school_project/models/user.dart';
 import 'package:school_project/screens/home/viewUserPost.dart';
 import 'package:school_project/screens/services/theme.dart';
 import 'package:school_project/shared/loading.dart';
@@ -13,7 +11,6 @@ class ViewAllChildPosts extends StatelessWidget {
   final String childName;
   ViewAllChildPosts({Key key, @required this.childId, this.childName}) : super(key: key);
 
-  @override
   bool loading = false;
 
   Widget buildBody(BuildContext context, DocumentSnapshot ds) {
@@ -96,7 +93,7 @@ class ViewAllChildPosts extends StatelessWidget {
         backgroundColor: mainColor,
         centerTitle: true,
         title: Text(
-          "${childName}'s posts",
+          "$childName's posts",
           style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,

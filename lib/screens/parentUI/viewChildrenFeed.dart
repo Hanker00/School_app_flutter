@@ -2,11 +2,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_project/models/parentChild.dart';
 import 'package:school_project/models/user.dart';
 import 'package:school_project/screens/parentUI/viewAllChildPosts.dart';
 import 'package:school_project/screens/services/auth.dart';
-import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/screens/services/theme.dart';
 import 'package:school_project/shared/loading.dart';
 
@@ -66,7 +64,6 @@ class _ViewChildrenFeedState extends State<ViewChildrenFeed> {
             );
           }
           else if (snapshot.data.documents.length == 0)  {
-            print(snapshot.data.documents == 0);
             return Container(
               child: Column(
                 children: <Widget>[

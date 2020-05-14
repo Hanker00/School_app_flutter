@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/parentChild.dart';
 import 'package:school_project/models/user.dart';
@@ -94,7 +93,6 @@ class _ParentHomeState extends State<ParentHome> {
   }
 
   int currentTab = 0;
-  @override
   final AuthService _auth = AuthService();
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);

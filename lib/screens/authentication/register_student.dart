@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import 'package:school_project/screens/home/homepage.dart';
 import 'package:school_project/screens/services/auth.dart';
-import 'package:school_project/shared/loading.dart';
 
 class RegisterStudent extends StatefulWidget {
   final Function toggleView;

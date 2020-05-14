@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -51,9 +50,9 @@ class _UploadPostState extends State<UploadPost> {
 
       final StorageUploadTask uploadTask = studentPostRef.child(timeKey.toString() + ".jpg").putFile(sampleImage);
 
-      var PostUrl = await  (await uploadTask.onComplete).ref.getDownloadURL();
+      var postUrl = await  (await uploadTask.onComplete).ref.getDownloadURL();
 
-      url = PostUrl.toString();
+      url = postUrl.toString();
 
       print("Post Url = " + url);
 

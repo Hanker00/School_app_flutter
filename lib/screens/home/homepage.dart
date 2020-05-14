@@ -1,19 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_project/screens/authentication/register_student.dart';
 import 'package:school_project/screens/home/createUserPost.dart';
-import 'package:school_project/screens/home/post.dart';
 import 'package:school_project/screens/home/userPostView.dart';
-import 'package:school_project/screens/home/userPosts.dart';
 import 'package:school_project/screens/services/auth.dart';
 import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/models/user.dart';
 
-import 'destination.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -23,7 +16,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentTab = 0;
   final AuthService _auth = AuthService();
-  int _currentIndex = 0;
   Color purpleColor = Color.fromRGBO(155, 132, 255, 100);
 
   Color mainColor = Color.fromRGBO(0, 29, 38, 100);
@@ -66,8 +58,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    final DocumentReference currentUserCollection =
-        Firestore.instance.collection('users').document(user.uid);
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/user.dart';
-import 'package:school_project/models/userPostModel.dart';
 import 'package:school_project/screens/home/viewUserPost.dart';
 import 'package:school_project/shared/loading.dart';
 
@@ -15,7 +14,6 @@ class UserPostView extends StatefulWidget {
 }
 
 class _UserPostViewState extends State<UserPostView> {
-  @override
   List<String> litems = ["1","2","Third","4"];
 
   Color mainColor = Color.fromRGBO(0, 29, 38, 100);

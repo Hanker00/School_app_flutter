@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'post.dart';
-import 'userPostsClass.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class UserPosts extends StatefulWidget {

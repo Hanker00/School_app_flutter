@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:school_project/screens/parentUI/viewAllChildPosts.dart';
 import 'package:school_project/screens/services/theme.dart';
 import 'package:school_project/shared/loading.dart';
 

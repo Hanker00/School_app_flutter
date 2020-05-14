@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:school_project/shared/loading.dart';
 import 'package:school_project/models/user.dart';
 import 'package:provider/provider.dart';
-import 'package:school_project/screens/home/viewUserPost.dart';
 import 'package:school_project/screens/parentUI/viewAllChildPosts.dart';
 
 class TeacherAllStudents extends StatefulWidget {

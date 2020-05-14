@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:school_project/models/userPostModel.dart';
 
 class ViewUserPost extends StatelessWidget {
 
@@ -12,7 +11,6 @@ class ViewUserPost extends StatelessWidget {
   Widget build(BuildContext context) {
     Color mainColor = Color.fromRGBO(0, 29, 38, 100);
     Color blueText = Color.fromRGBO(0, 207, 255, 100);
-    TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
     var date = userPost['postDate'].toDate();
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
     return Scaffold(

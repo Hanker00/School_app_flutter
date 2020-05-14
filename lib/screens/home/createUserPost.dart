@@ -2,18 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/user.dart';
 import 'package:school_project/models/userPostModel.dart';
-import 'package:school_project/screens/home/homepage.dart';
-import 'package:school_project/screens/home/userPosts.dart';
 import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/shared/loading.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:io';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
@@ -23,7 +18,6 @@ class CreateUserPost extends StatefulWidget {
 }
 
 class _CreateUserPostState extends State<CreateUserPost> {
-  @override
   Color purpleColor = Color.fromRGBO(155, 132, 255, 100);
 
   Color mainColor = Color.fromRGBO(0, 29, 38, 100);
@@ -54,21 +48,7 @@ class _CreateUserPostState extends State<CreateUserPost> {
     });
   }
 
-  void _clear() {
-    setState(() {
-      _imageFile = null;
-    });
-  }
 
-  Future<void> _cropImage() async {
-    File cropped = await ImageCropper.cropImage(
-      sourcePath: _imageFile.path,
-    );
-
-    setState(() {
-      _imageFile = cropped ?? _imageFile;
-    });
-  }
  @override
   void initState() {
     super.initState();

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/parentChild.dart';
 import 'package:school_project/models/user.dart';
-import 'package:school_project/screens/parentUI/viewChildrenFeed.dart';
 import 'package:school_project/screens/services/auth.dart';
 import 'package:school_project/screens/services/database.dart';
 import 'package:school_project/screens/services/theme.dart';
@@ -92,7 +91,6 @@ class _TeacherHomeState extends State<TeacherHome> {
   }
 
   int currentTab = 0;
-  @override
   final AuthService _auth = AuthService();
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
