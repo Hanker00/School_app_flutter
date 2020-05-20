@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ViewUserPost extends StatelessWidget {
+class ViewSpecificPost extends StatelessWidget {
 
   final DocumentSnapshot userPost;
-  ViewUserPost({Key key, @required this.userPost}) : super(key: key);
+  ViewSpecificPost({Key key, @required this.userPost}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

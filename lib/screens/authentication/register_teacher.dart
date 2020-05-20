@@ -177,10 +177,13 @@ class _TeacherRegisterState extends State<TeacherRegister> {
                               .registerWithEmailAndPassword(email, password, grade, name, "Teacher");
                           if (result == null) {
                             setState(() {
-                              error = "please supply a valid email";
                               loading = false;
+                              error = "please supply a valid email";
                             });
                           }
+                          else {
+                          return Navigator.of(context).pop();
+                        }
                         }
                       },
                       child: Text("Sign up",

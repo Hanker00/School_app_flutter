@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:school_project/screens/home/viewUserPost.dart';
+import 'package:school_project/screens/home/viewSpecificPost.dart';
 import 'package:school_project/screens/services/theme.dart';
 import 'package:school_project/shared/loading.dart';
 
@@ -18,7 +18,7 @@ class ViewAllChildPosts extends StatelessWidget {
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
     return GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewUserPost(userPost: ds),),);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewSpecificPost(userPost: ds),),);
         },
           child: Container(
         child: Padding(

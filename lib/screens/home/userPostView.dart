@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:school_project/models/user.dart';
-import 'package:school_project/screens/home/viewUserPost.dart';
+import 'package:school_project/screens/home/viewSpecificPost.dart';
 import 'package:school_project/shared/loading.dart';
 
 
@@ -14,7 +14,6 @@ class UserPostView extends StatefulWidget {
 }
 
 class _UserPostViewState extends State<UserPostView> {
-  List<String> litems = ["1","2","Third","4"];
 
   Color mainColor = Color.fromRGBO(0, 29, 38, 100);
 
@@ -23,13 +22,12 @@ class _UserPostViewState extends State<UserPostView> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
   bool loading = false;
-
   Widget buildBody(BuildContext context, DocumentSnapshot ds) {
     var date = ds['postDate'].toDate();
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
     return GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewUserPost(userPost: ds),
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewSpecificPost(userPost: ds),
           ),
           );
         },
@@ -70,7 +68,6 @@ class _UserPostViewState extends State<UserPostView> {
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
-                                
                                 ds['subject'],
                                 style: TextStyle(color: blueText, fontSize: 20.0),
                               ),

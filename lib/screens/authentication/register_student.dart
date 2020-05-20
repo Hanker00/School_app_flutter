@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:numberpicker/numberpicker.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:school_project/screens/services/auth.dart';
+import 'package:school_project/shared/loading.dart';
 
 class RegisterStudent extends StatefulWidget {
   final Function toggleView;
@@ -45,7 +44,7 @@ class _RegisterStudentState extends State<RegisterStudent> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       appBar: AppBar(
         title: Text("Student Register"),
       ),
@@ -156,43 +155,6 @@ class _RegisterStudentState extends State<RegisterStudent> {
               ),
             ),
           ),
-          // Page three
-          Container(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 25.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Finally when were you born?",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: blueText, fontSize: 50.0),
-                  ),
-                ),
-                SizedBox(height: 30.0),
-                RaisedButton(
-                  onPressed: () {
-                    DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        minTime: DateTime(1970, 1, 1),
-                        maxTime: DateTime(2019, 1, 1), onChanged: (date) {
-                      setState(() {
-                        birthdate = date;
-                        formattedDate = DateFormat('yyyy-MM-dd').format(date);
-                      });
-                    }, onConfirm: (date) {
-                      print("confirm $formattedDate");
-                      _pageController.nextPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                      );
-                    }, currentTime: DateTime.now(), locale: LocaleType.en);
-                  },
-                  child: Text("Pick your birthdate"),
-                ),
-              ],
-            ),
-          ),
           // Final sign up button
           Container(
             child: Column(
@@ -206,11 +168,6 @@ class _RegisterStudentState extends State<RegisterStudent> {
                 SizedBox(height: 25.0),
                 Text(
                   "You are in grade: $grade",
-                  style: TextStyle(color: blueText, fontSize: 50.0),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  "You were born $formattedDate",
                   style: TextStyle(color: blueText, fontSize: 50.0),
                   textAlign: TextAlign.center,
                 ),
@@ -231,7 +188,6 @@ class _RegisterStudentState extends State<RegisterStudent> {
               ],
             ),
           ),
-
           Container(
             child: Form(
               key: _formKey,
@@ -289,6 +245,7 @@ class _RegisterStudentState extends State<RegisterStudent> {
                       },
                     ),
                   ),
+                  SizedBox(height: 20.0),
                   Material(
                     elevation: 5.0,
                     borderRadius: BorderRadius.circular(30.0),
@@ -307,6 +264,9 @@ class _RegisterStudentState extends State<RegisterStudent> {
                               loading = false;
                             });
                           }
+                        else {
+                          return Navigator.of(context).pop();
+                        }
                         }
                       
                       },
